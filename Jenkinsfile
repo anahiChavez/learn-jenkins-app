@@ -16,6 +16,8 @@ pipeline {
                 npm ci
                 npm run build
                 ls -la
+                test -f /build/index.html && echo "Exists" || echo "Not found" 
+                pwd
             ''' 
         } 
     }
@@ -23,6 +25,7 @@ pipeline {
         steps { 
             sh '''
                 test -f /build/index.html && echo "Exists" || echo "Not found" 
+                pwd
             ''' 
         } 
     }
