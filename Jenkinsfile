@@ -16,16 +16,13 @@ pipeline {
                 npm ci
                 npm run build
                 ls -la
-                test -f build/index.html
-                pwd
             ''' 
         } 
     }
     stage('Test') { 
         steps { 
             sh '''
-                test -f build/index.html
-                pwd
+                npm test
             ''' 
         } 
     }
