@@ -106,7 +106,7 @@ pipeline {
             }
 
             environment {
-                CI_ENVIRONMENT_URL = "$env.STG_URL"
+                CI_ENVIRONMENT_URL = 'STG_URL_TO_BE_SET'
             }
 
             steps {
