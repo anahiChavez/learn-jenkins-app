@@ -5,6 +5,9 @@ pipeline {
         NETLIFY_SITE_ID = '681be1fd-f10e-4e78-b396-cdd3674d0049'
         REACT_APP_VERSION = "1.0.$BUILD_ID"
         AWS_DEFAULT_REGION = 'us-east-2'
+        AWS_ECS_CLUSTER = 'JenkinsApp-Cluster-Prod'
+        AWS_ECS_SERVICE_PROD = 'JenkinsApp-Service-Prod'
+        AWS_ECS_TD_PROD = 'JenkinsApp-TaskDefinition-Prod'
     }
 
     stages {
@@ -23,9 +26,8 @@ pipeline {
                     aws --version
                     yum install jq -y
                     LATEST_TD_REVISION=$(aws ecs register-task-definition --cli-input-json file://aws/task-definition-prod.json | jq '.taskDefinition.revision')
-                    echo $LATEST_TD_REVISION
-                    aws ecs update-service --cluster JenkinsApp-Cluster-Prod --service JenkinsApp-Service-Prod --task-definition JenkinsApp-TaskDefinition-Prod:$LATEST_TD_REVISION
-                    aws ecs wait services-stable --cluster JenkinsApp-Cluster-Prod --services JenkinsApp-Service-Prod
+                    aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE_PROD --task-definition $AWS_ECS_TD_PROD:$LATEST_TD_REVISION
+                    aws ecs wait services-stable --cluster $AWS_ECS_CLUSTER --services $AWS_ECS_SERVICE_PROD
                     '''
                 }
             }
