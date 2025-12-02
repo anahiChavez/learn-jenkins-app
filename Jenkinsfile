@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NETLIFY_SITE_ID = '681be1fd-f10e-4e78-b396-cdd3674d0049'
         REACT_APP_VERSION = "1.0.$BUILD_ID"
-        AWS_DEFAULT_REGION = 'us-east-2'
+        AWS_DEFAULT_REGION = 'us-east-1'
         AWS_ECS_CLUSTER = 'JenkinsApp-Cluster-Prod'
         AWS_ECS_SERVICE_PROD = 'JenkinsApp-Service-Prod'
         AWS_ECS_TD_PROD = 'JenkinsApp-TaskDefinition-Prod'
